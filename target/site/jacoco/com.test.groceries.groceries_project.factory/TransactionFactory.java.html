@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groceries-project</a> &gt; <a href="index.source.html" class="el_package">com.test.groceries.groceries_project.factory</a> &gt; <span class="el_source">TransactionFactory.java</span></div><h1>TransactionFactory.java</h1><pre class="source lang-java linenums">package com.test.groceries.groceries_project.factory;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+
+import com.test.groceries.groceries_project.bean.person.Customer;
+import com.test.groceries.groceries_project.bean.person.Person;
+import com.test.groceries.groceries_project.bean.products.ProductGroup;
+import com.test.groceries.groceries_project.bean.transaction.Transaction;
+import com.test.groceries.groceries_project.bean.transaction.TransactionDetails;
+import com.test.groceries.groceries_project.utilities.DateUtil;
+
+/**
+ * 
+ * @author aboujaow
+ *
+ */
+<span class="nc" id="L19">public class TransactionFactory {</span>
+
+<span class="fc" id="L21">	public static final Long TWO_YEAR = 63072000000L;</span>
+	
+	public static Transaction createTransaction(Person p, List&lt;TransactionDetails&gt; tdList) throws ParseException {
+<span class="fc" id="L24">		return processTransaction(p, tdList);</span>
+	}
+	
+	private static Transaction processTransaction(Person p, List&lt;TransactionDetails&gt; tdList) throws ParseException {
+		
+<span class="fc" id="L29">		Integer transactionId = Transaction.generateNewTransactionId();</span>
+<span class="fc" id="L30">		Double transactionDiscount = 0D;</span>
+<span class="fc" id="L31">		Double transactionSubTotalPrice = 0D;</span>
+<span class="fc" id="L32">		Double transactionTotalPrice = 0D;</span>
+		
+<span class="fc" id="L34">		Double groceriesProductAmount = 0D;</span>
+<span class="fc" id="L35">		Double nonGroceriesProductAmount = 0D;</span>
+<span class="fc" id="L36">		Double amountIncludingDiscountRate = 0D;</span>
+<span class="fc" id="L37">		Double discountOnHundred = 0D;</span>
+		
+		
+<span class="fc" id="L40">		Double discountRate = (100D-p.getDiscount())/100;</span>
+		
+<span class="fc bfc" id="L42" title="All 2 branches covered.">		for(TransactionDetails td:tdList) {</span>
+<span class="fc" id="L43">			Double productPrice = td.getProduct().getPrice();</span>
+<span class="fc" id="L44">			Integer quantity = td.getQuantity();</span>
+<span class="fc" id="L45">			Double totalPrice = productPrice*quantity;</span>
+			
+<span class="fc bfc" id="L47" title="All 2 branches covered.">			if(td.getProduct().getGroup().equals(ProductGroup.GROCERIES)) {</span>
+<span class="fc" id="L48">				groceriesProductAmount = groceriesProductAmount + totalPrice;</span>
+			} else {
+<span class="fc" id="L50">				nonGroceriesProductAmount = nonGroceriesProductAmount + totalPrice;</span>
+			}
+<span class="fc" id="L52">		}</span>
+		//Calculating the transaction subTotal ==&gt; without discount
+<span class="fc" id="L54">		transactionSubTotalPrice = groceriesProductAmount + nonGroceriesProductAmount;</span>
+		
+<span class="fc" id="L56">		amountIncludingDiscountRate = nonGroceriesProductAmount*discountRate;</span>
+		
+		//check if the Person is a customer and is not a customer from two years not discount to apply
+<span class="fc bfc" id="L59" title="All 2 branches covered.">		if(p instanceof Customer) {</span>
+			Date currentDate;
+<span class="fc" id="L61">			currentDate = DateUtil.createDate(null, null);</span>
+<span class="fc" id="L62">			Long currentDateInMilli = currentDate.getTime();</span>
+<span class="fc" id="L63">			Long customerEntryDateInMilli = ((Customer) p).getEntry().getTime();</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">			if((currentDateInMilli-customerEntryDateInMilli)&lt;TWO_YEAR) {</span>
+<span class="fc" id="L65">				amountIncludingDiscountRate = nonGroceriesProductAmount;</span>
+			}
+		}
+		
+		//Apply discount on every one hundred dollar
+<span class="fc" id="L70">		discountOnHundred = Math.floor(Math.floor(transactionSubTotalPrice-(nonGroceriesProductAmount-amountIncludingDiscountRate))/100)*5;</span>
+		
+<span class="fc" id="L72">		transactionDiscount = discountOnHundred + (nonGroceriesProductAmount-amountIncludingDiscountRate);</span>
+<span class="fc" id="L73">		transactionTotalPrice = transactionSubTotalPrice - transactionDiscount;</span>
+		
+<span class="fc" id="L75">		return new Transaction(p, transactionId, transactionDiscount, transactionSubTotalPrice, transactionTotalPrice, tdList);</span>
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

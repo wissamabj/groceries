@@ -12,6 +12,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -22,4 +24,53 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+  	<plugins>
+		  <plugin>
+		    <groupId>org.jacoco</groupId>
+		    <artifactId>jacoco-maven-plugin</artifactId>
+		    <version>0.8.3</version>
+		    <executions>
+		        <!--
+		            Prepares the property pointing to the JaCoCo runtime agent which
+		            is passed as VM argument when Maven the Surefire plugin is executed.
+		        -->
+		        <execution>
+		            <id>pre-unit-test</id>
+		            <goals>
+		                <goal>prepare-agent</goal>
+		            </goals>
+		        </execution>
+		        <execution>
+		            <id>report</id>
+		            <goals>
+		                <goal>report</goal>
+		            </goals>
+		        </execution>
+		        <!--
+		            Ensures that the code coverage report for unit tests is created after
+		            unit tests have been run.
+		        -->
+		        <execution>
+		            <id>post-unit-test</id>
+		            <phase>test</phase>
+		            <goals>
+		                <goal>report</goal>
+		            </goals>
+		            <configuration>
+		                <!-- Sets the path to the file which contains the execution data. -->
+		                <dataFile>target/jacoco.exec</dataFile>
+		                <!-- Sets the output directory for the code coverage report. -->
+		                <outputDirectory>target/groceries-report</outputDirectory>
+		            </configuration>
+		        </execution>
+		    </executions>
+		    <configuration>
+	            <systemPropertyVariables>
+	            	<jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+	            </systemPropertyVariables>
+            </configuration> 
+		</plugin>
+  	</plugins>
+  </build>
 </project>

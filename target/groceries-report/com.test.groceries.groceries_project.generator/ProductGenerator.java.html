@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groceries-project</a> &gt; <a href="index.source.html" class="el_package">com.test.groceries.groceries_project.generator</a> &gt; <span class="el_source">ProductGenerator.java</span></div><h1>ProductGenerator.java</h1><pre class="source lang-java linenums">package com.test.groceries.groceries_project.generator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.test.groceries.groceries_project.bean.products.Product;
+import com.test.groceries.groceries_project.bean.products.ProductGroup;
+import com.test.groceries.groceries_project.factory.ProductFactory;
+
+<span class="nc" id="L10">public class ProductGenerator {</span>
+
+	public static List&lt;Product&gt; generateProduct() {
+<span class="fc" id="L13">		List&lt;Product&gt; productList = new ArrayList&lt;Product&gt;();</span>
+		
+<span class="fc" id="L15">		productList.add(ProductFactory.createProduct(1, &quot;Oil&quot;, 15.5D, ProductGroup.PRODUCTS));</span>
+<span class="fc" id="L16">		productList.add(ProductFactory.createProduct(2, &quot;Fish&quot;, 150D, ProductGroup.PRODUCTS));</span>
+<span class="fc" id="L17">		productList.add(ProductFactory.createProduct(3, &quot;Apple&quot;, 10D, ProductGroup.GROCERIES));</span>
+<span class="fc" id="L18">		productList.add(ProductFactory.createProduct(4, &quot;Carot&quot;, 15D, ProductGroup.GROCERIES));</span>
+		
+<span class="fc" id="L20">		return productList;</span>
+
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

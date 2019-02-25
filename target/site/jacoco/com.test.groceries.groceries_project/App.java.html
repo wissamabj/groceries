@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">groceries-project</a> &gt; <a href="index.source.html" class="el_package">com.test.groceries.groceries_project</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package com.test.groceries.groceries_project;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.test.groceries.groceries_project.bean.person.Person;
+import com.test.groceries.groceries_project.bean.products.Product;
+import com.test.groceries.groceries_project.bean.transaction.Transaction;
+import com.test.groceries.groceries_project.bean.transaction.TransactionDetails;
+import com.test.groceries.groceries_project.consumer.PersonConsumer;
+import com.test.groceries.groceries_project.consumer.ProductConsumer;
+import com.test.groceries.groceries_project.factory.TransactionDetailsFactory;
+import com.test.groceries.groceries_project.factory.TransactionFactory;
+import com.test.groceries.groceries_project.generator.PersonsGenerator;
+import com.test.groceries.groceries_project.generator.ProductGenerator;
+
+/**
+ * 
+ * @author aboujaow
+ *
+ */
+<span class="nc" id="L23">public class App </span>
+{
+	
+<span class="fc" id="L26">	static List&lt;Person&gt; personList = PersonsGenerator.generatePersons();</span>
+<span class="fc" id="L27">    static List&lt;Product&gt; productList = ProductGenerator.generateProduct();</span>
+    public static void main( String[] args )
+    {
+<span class="nc" id="L30">        System.out.println( &quot;Welcome to our store!&quot; );</span>
+       
+        
+<span class="nc" id="L33">        System.out.println(&quot;&gt;&gt;&gt;Our customers&quot;);</span>
+<span class="nc" id="L34">        System.out.println(&quot;id\tFName\tLName\tType\t\tJoin Date&quot;);</span>
+<span class="nc" id="L35">        System.out.println(&quot;--\t-----\t-----\t----\t\t---------&quot;);</span>
+<span class="nc" id="L36">        personList.stream().forEach(new PersonConsumer());</span>
+        
+<span class="nc" id="L38">        System.out.println(&quot;&gt;&gt;&gt;Our products&quot;);</span>
+<span class="nc" id="L39">        System.out.println(&quot;id\tName\tGroup&quot;);</span>
+<span class="nc" id="L40">        System.out.println(&quot;--\t----\t-----&quot;);</span>
+<span class="nc" id="L41">        productList.stream().forEach(new ProductConsumer());</span>
+        
+<span class="nc" id="L43">        System.out.println();</span>
+<span class="nc" id="L44">        System.out.println(&quot;Transaction 1 Information&quot;);</span>
+<span class="nc" id="L45">        createTransaction1().printTransactionInformation();</span>
+        
+<span class="nc" id="L47">        System.out.println();</span>
+<span class="nc" id="L48">        System.out.println(&quot;Transaction 2 Information&quot;);</span>
+<span class="nc" id="L49">        createTransaction2().printTransactionInformation();</span>
+        
+<span class="nc" id="L51">        System.out.println();</span>
+<span class="nc" id="L52">        System.out.println(&quot;Transaction 3 Information&quot;);</span>
+<span class="nc" id="L53">        createTransaction3().printTransactionInformation();</span>
+        
+<span class="nc" id="L55">        System.out.println();</span>
+<span class="nc" id="L56">        System.out.println(&quot;Transaction 4 Information&quot;);</span>
+<span class="nc" id="L57">        createTransaction4().printTransactionInformation();</span>
+<span class="nc" id="L58">    }</span>
+    
+    /**
+     * This method will return an Object of type #Transaction
+     * This #Transaction is for a #Person of type #Affiliate.
+     * This method will return the total of the transaction on the non groceries deducted by 10%.
+     * 
+     * @return #Transaction
+     */
+    public static Transaction createTransaction1() {
+<span class="fc" id="L68">    	Person p = personList.get(2);</span>
+<span class="fc" id="L69">    	List&lt;TransactionDetails&gt; tdList = new ArrayList&lt;TransactionDetails&gt;();</span>
+<span class="fc" id="L70">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(0), 10));</span>
+<span class="fc" id="L71">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(1), 5));</span>
+<span class="fc" id="L72">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(2), 6));</span>
+<span class="fc" id="L73">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(3), 7));</span>
+    	try {
+<span class="fc" id="L75">			return TransactionFactory.createTransaction(p, tdList);</span>
+<span class="nc" id="L76">		} catch (ParseException e) {</span>
+<span class="nc" id="L77">			System.out.println(&quot;Cannot create transaction. &quot;+e.getMessage());</span>
+		}
+<span class="nc" id="L79">    	return null;</span>
+    }
+    
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Customer.
+     * This method will return the total of the transaction on the non groceries deducted by 5% as the user has been a customer for more than 2 years. 
+     *  
+     * @return #Transaction
+     */
+    public static Transaction createTransaction2() {
+<span class="fc" id="L90">    	Person p = personList.get(0);</span>
+<span class="fc" id="L91">    	List&lt;TransactionDetails&gt; tdList = new ArrayList&lt;TransactionDetails&gt;();</span>
+<span class="fc" id="L92">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(0), 10));</span>
+<span class="fc" id="L93">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(1), 5));</span>
+<span class="fc" id="L94">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(2), 6));</span>
+<span class="fc" id="L95">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(3), 7));</span>
+    	try {
+<span class="fc" id="L97">			return TransactionFactory.createTransaction(p, tdList);</span>
+<span class="nc" id="L98">		} catch (ParseException e) {</span>
+<span class="nc" id="L99">			System.out.println(&quot;Cannot create transaction. &quot;+e.getMessage());</span>
+		}
+<span class="nc" id="L101">    	return null;</span>
+    }
+    
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Customer.
+     * This method will return the total of the transaction without any percentage deduction as the user has been a customer for less than 2 years.
+     *  
+     * @return #Transaction
+     */
+    public static Transaction createTransaction3() {
+<span class="fc" id="L112">    	Person p = personList.get(1);</span>
+<span class="fc" id="L113">    	List&lt;TransactionDetails&gt; tdList = new ArrayList&lt;TransactionDetails&gt;();</span>
+<span class="fc" id="L114">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(0), 10));</span>
+<span class="fc" id="L115">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(1), 5));</span>
+<span class="fc" id="L116">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(2), 6));</span>
+<span class="fc" id="L117">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(3), 7));</span>
+    	try {
+<span class="fc" id="L119">			return TransactionFactory.createTransaction(p, tdList);</span>
+<span class="nc" id="L120">		} catch (ParseException e) {</span>
+<span class="nc" id="L121">			System.out.println(&quot;Cannot create transaction. &quot;+e.getMessage());</span>
+		}
+<span class="nc" id="L123">    	return null;</span>
+    }
+    
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Employee.
+     * This method will return the total of the transaction on the non groceries deducted by 30%.
+     *  
+     * @return #Transaction
+     */
+    public static Transaction createTransaction4() {
+<span class="fc" id="L134">    	Person p = personList.get(4);</span>
+<span class="fc" id="L135">    	List&lt;TransactionDetails&gt; tdList = new ArrayList&lt;TransactionDetails&gt;();</span>
+<span class="fc" id="L136">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(0), 10));</span>
+<span class="fc" id="L137">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(1), 5));</span>
+<span class="fc" id="L138">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(2), 6));</span>
+<span class="fc" id="L139">    	tdList.add(TransactionDetailsFactory.createTransaction(productList.get(3), 7));</span>
+    	try {
+<span class="fc" id="L141">			return TransactionFactory.createTransaction(p, tdList);</span>
+<span class="nc" id="L142">		} catch (ParseException e) {</span>
+<span class="nc" id="L143">			System.out.println(&quot;Cannot create transaction. &quot;+e.getMessage());</span>
+		}
+<span class="nc" id="L145">    	return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

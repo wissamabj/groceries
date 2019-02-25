@@ -57,6 +57,13 @@ public class App
         createTransaction4().printTransactionInformation();
     }
     
+    /**
+     * This method will return an Object of type #Transaction
+     * This #Transaction is for a #Person of type #Affiliate.
+     * This method will return the total of the transaction on the non groceries deducted by 10%.
+     * 
+     * @return #Transaction
+     */
     public static Transaction createTransaction1() {
     	Person p = personList.get(2);
     	List<TransactionDetails> tdList = new ArrayList<TransactionDetails>();
@@ -72,6 +79,13 @@ public class App
     	return null;
     }
     
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Customer.
+     * This method will return the total of the transaction on the non groceries deducted by 5% as the user has been a customer for more than 2 years. 
+     *  
+     * @return #Transaction
+     */
     public static Transaction createTransaction2() {
     	Person p = personList.get(0);
     	List<TransactionDetails> tdList = new ArrayList<TransactionDetails>();
@@ -87,6 +101,13 @@ public class App
     	return null;
     }
     
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Customer.
+     * This method will return the total of the transaction without any percentage deduction as the user has been a customer for less than 2 years.
+     *  
+     * @return #Transaction
+     */
     public static Transaction createTransaction3() {
     	Person p = personList.get(1);
     	List<TransactionDetails> tdList = new ArrayList<TransactionDetails>();
@@ -102,6 +123,13 @@ public class App
     	return null;
     }
     
+    /**
+     * This method will return an Object of type #Transaction.
+     * This #Transaction is for a #Person of type #Employee.
+     * This method will return the total of the transaction on the non groceries deducted by 30%.
+     *  
+     * @return #Transaction
+     */
     public static Transaction createTransaction4() {
     	Person p = personList.get(4);
     	List<TransactionDetails> tdList = new ArrayList<TransactionDetails>();
