@@ -7,7 +7,10 @@ An additional deduction of 5 should be done on every 100 of the transaction. Thi
 #RUN the program:
 This project depends from JAVA 8.
 This project run with a main java function defined in the class App.java
-To run the project you should download the project first, open the Command prompt and run the following command:
-java -cp "<PATH_TO_PROJECT_REPOSITORY>\groceries-master\target\groceries-project-1.0-SNAPSHOT.jar" com.test.groceries.groceries_project.App
+To build and run the unit test, using the command line of the windows navigate to the root directory of the project where the file POM.xml reside and run the following commands:
+mvn clean
+mvn install
+Using the above commands the project will be built and the unit test will be executed.
 
-This project include a test class for unit testing.
+To run the project, open the Command prompt and run the following command:
+java -cp "<PATH_TO_PROJECT_REPOSITORY>\groceries-master\target\groceries-project-1.0-SNAPSHOT.jar" com.test.groceries.groceries_project.App
