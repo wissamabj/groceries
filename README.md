@@ -4,4 +4,10 @@
 
 An additional deduction of 5 should be done on every 100 of the transaction. This deduction will be calculated after the percentage deduction.
 
-#RUN the program: This project run with a main java function defined in the class App.java This project include a test class for unit testing.
+#RUN the program:
+This project depends from JAVA 8.
+This project run with a main java function defined in the class App.java
+To run the project you should download the project first, open the Command prompt and run the following command:
+java -cp "<PATH_TO_PROJECT_REPOSITORY>\groceries-master\target\groceries-project-1.0-SNAPSHOT.jar" com.test.groceries.groceries_project.App
+
+This project include a test class for unit testing.
