@@ -1,7 +1,5 @@
 package com.test.groceries.groceries_project;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.test.groceries.groceries_project.bean.person.Affiliate;
@@ -12,10 +10,8 @@ import com.test.groceries.groceries_project.bean.products.Product;
 import com.test.groceries.groceries_project.bean.transaction.Transaction;
 import com.test.groceries.groceries_project.bean.transaction.TransactionDetails;
 import com.test.groceries.groceries_project.factory.TransactionDetailsFactory;
-import com.test.groceries.groceries_project.factory.TransactionFactory;
 import com.test.groceries.groceries_project.generator.PersonsGenerator;
 import com.test.groceries.groceries_project.generator.ProductGenerator;
-import com.test.groceries.groceries_project.App;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
