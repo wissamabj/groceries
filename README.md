@@ -15,4 +15,4 @@ The coverage report will be built after the maven install runs successfully unde
 
 <b>#Run the project:</b><br/>
 To run the project, open the Command prompt and run the following command:<br/>
-java -cp "<PATH_TO_PROJECT_REPOSITORY>\groceries-master\target\groceries-project-1.0-SNAPSHOT.jar" com.test.groceries.groceries_project.App
+java -cp "<PATH_TO_PROJECT_REPOSITORY>\target\groceries-project-1.0-SNAPSHOT.jar" com.test.groceries.groceries_project.App
